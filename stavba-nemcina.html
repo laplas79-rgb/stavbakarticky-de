@@ -11,6 +11,7 @@
 <link rel="manifest" href="manifest.json">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;800&family=Barlow:wght@400;500;600&display=swap');
+
   :root {
     --yellow: #F5C500;
     --yellow-dark: #D4A900;
@@ -23,82 +24,426 @@
     --red: #C0392B;
     --green: #27AE60;
   }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--black); color: var(--white); font-family: 'Barlow', sans-serif; min-height: 100vh; padding: 0 0 40px 0; }
-  header { background: var(--yellow); padding: 14px 20px 12px; display: flex; align-items: center; gap: 12px; border-bottom: 4px solid var(--black); }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    padding: 0 0 40px 0;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--yellow);
+    padding: 14px 20px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 4px solid var(--black);
+  }
   .header-icon { font-size: 28px; }
-  header h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 22px; color: var(--black); text-transform: uppercase; letter-spacing: 1px; line-height: 1.1; }
-  header h1 span { display: block; font-size: 13px; font-weight: 600; letter-spacing: 2px; opacity: 0.7; }
-  .stats-bar { background: var(--concrete); padding: 10px 20px; display: flex; gap: 20px; align-items: center; font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-bottom: 2px solid var(--black); }
+  header h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--black);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.1;
+  }
+  header h1 span {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    opacity: 0.7;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    background: var(--concrete);
+    padding: 10px 20px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--black);
+  }
   .stat { display: flex; align-items: center; gap: 6px; }
   .stat-dot { width: 10px; height: 10px; border-radius: 50%; }
   .dot-total { background: var(--dust); }
   .dot-known { background: var(--green); }
   .dot-unknown { background: var(--red); }
-  .progress-bar { flex: 1; height: 6px; background: var(--black); border-radius: 3px; overflow: hidden; }
-  .progress-fill { height: 100%; background: var(--green); border-radius: 3px; transition: width 0.4s ease; }
-  .categories { padding: 14px 16px 0; display: flex; gap: 8px; flex-wrap: wrap; }
-  .cat-btn { background: var(--concrete); border: 2px solid var(--concrete-light); color: var(--dust-light); padding: 6px 14px; border-radius: 3px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; transition: all 0.15s; }
-  .cat-btn.active { background: var(--yellow); border-color: var(--yellow); color: var(--black); }
-  .cat-btn:hover:not(.active) { border-color: var(--yellow); color: var(--yellow); }
-  .card-area { padding: 20px 16px 0; display: flex; flex-direction: column; align-items: center; }
-  .card-counter { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--dust); margin-bottom: 12px; }
-  .card-wrapper { width: 100%; max-width: 420px; perspective: 1200px; height: 240px; cursor: pointer; }
-  .card { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+  .progress-bar {
+    flex: 1;
+    height: 6px;
+    background: var(--black);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--green);
+    border-radius: 3px;
+    transition: width 0.4s ease;
+  }
+
+  /* CATEGORY FILTER */
+  .categories {
+    padding: 14px 16px 0;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .cat-btn {
+    background: var(--concrete);
+    border: 2px solid var(--concrete-light);
+    color: var(--dust-light);
+    padding: 6px 14px;
+    border-radius: 3px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .cat-btn.active {
+    background: var(--yellow);
+    border-color: var(--yellow);
+    color: var(--black);
+  }
+  .cat-btn:hover:not(.active) {
+    border-color: var(--yellow);
+    color: var(--yellow);
+  }
+
+  /* CARD AREA */
+  .card-area {
+    padding: 20px 16px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card-counter {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--dust);
+    margin-bottom: 12px;
+  }
+
+  /* THE CARD */
+  .card-wrapper {
+    width: 100%;
+    max-width: 420px;
+    perspective: 1200px;
+    height: 240px;
+    cursor: pointer;
+  }
+
+  .card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
   .card.flipped { transform: rotateY(180deg); }
-  .card-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; text-align: center; }
-  .card-front { background: var(--concrete); border: 3px solid var(--concrete-light); border-top: 6px solid var(--yellow); }
+
+  .card-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    text-align: center;
+  }
+
+  /* FRONT */
+  .card-front {
+    background: var(--concrete);
+    border: 3px solid var(--concrete-light);
+    border-top: 6px solid var(--yellow);
+  }
   .card-emoji { font-size: 52px; margin-bottom: 10px; line-height: 1; }
-  .card-cs { font-family: 'Barlow Condensed', sans-serif; font-size: 32px; font-weight: 800; color: var(--white); text-transform: uppercase; letter-spacing: 1px; line-height: 1; }
-  .card-category-tag { margin-top: 10px; background: var(--black); color: var(--dust); font-size: 11px; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 2px; }
-  .tap-hint { position: absolute; bottom: 12px; right: 14px; font-size: 11px; color: var(--dust); font-family: 'Barlow Condensed', sans-serif; font-weight: 600; letter-spacing: 1px; opacity: 0.6; }
-  .card-back { background: var(--yellow); border: 3px solid var(--yellow-dark); border-top: 6px solid var(--black); transform: rotateY(180deg); }
-  .card-de { font-family: 'Barlow Condensed', sans-serif; font-size: 36px; font-weight: 800; color: var(--black); text-transform: uppercase; letter-spacing: 1px; line-height: 1; margin-bottom: 6px; }
-  .card-article { font-size: 14px; font-weight: 600; color: var(--concrete); margin-bottom: 4px; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1px; text-transform: uppercase; }
-  .card-pronunciation { font-size: 18px; color: var(--concrete); font-style: italic; margin-bottom: 6px; }
-  .card-plural { font-size: 13px; color: var(--concrete-light); font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.5px; }
-  .btn-speak { margin-top: 12px; background: var(--black); border: 2px solid var(--concrete-light); color: var(--white); padding: 8px 20px; border-radius: 4px; font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.15s; }
-  .btn-speak:hover { border-color: var(--yellow); color: var(--yellow); }
-  .card-buttons { display: flex; gap: 12px; margin-top: 18px; width: 100%; max-width: 420px; }
-  .btn { flex: 1; padding: 14px; border: none; border-radius: 4px; font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 6px; }
-  .btn-unknown { background: var(--concrete); color: var(--white); border: 2px solid var(--red); }
+  .card-cs {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  .card-category-tag {
+    margin-top: 10px;
+    background: var(--black);
+    color: var(--dust);
+    font-size: 11px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 2px;
+  }
+  .tap-hint {
+    position: absolute;
+    bottom: 12px;
+    right: 14px;
+    font-size: 11px;
+    color: var(--dust);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+    opacity: 0.6;
+  }
+
+  /* BACK */
+  .card-back {
+    background: var(--yellow);
+    border: 3px solid var(--yellow-dark);
+    border-top: 6px solid var(--black);
+    transform: rotateY(180deg);
+  }
+  .card-de {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--black);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .card-article {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--concrete);
+    margin-bottom: 4px;
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .card-pronunciation {
+    font-size: 18px;
+    color: var(--concrete);
+    font-style: italic;
+    margin-bottom: 6px;
+  }
+  .card-plural {
+    font-size: 13px;
+    color: var(--concrete-light);
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.5px;
+  }
+
+  /* BUTTONS */
+  .card-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 18px;
+    width: 100%;
+    max-width: 420px;
+  }
+  .btn {
+    flex: 1;
+    padding: 14px;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .btn-unknown {
+    background: var(--concrete);
+    color: var(--white);
+    border: 2px solid var(--red);
+  }
   .btn-unknown:hover { background: var(--red); }
-  .btn-known { background: var(--yellow); color: var(--black); border: 2px solid var(--yellow-dark); }
+  .btn-known {
+    background: var(--yellow);
+    color: var(--black);
+    border: 2px solid var(--yellow-dark);
+  }
   .btn-known:hover { background: var(--yellow-dark); }
-  .nav-buttons { display: flex; gap: 10px; margin-top: 12px; width: 100%; max-width: 420px; }
-  .btn-nav { flex: 1; padding: 10px; background: transparent; border: 2px solid var(--concrete-light); color: var(--dust); border-radius: 4px; font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.15s; }
+
+  .nav-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+    width: 100%;
+    max-width: 420px;
+  }
+  .btn-nav {
+    flex: 1;
+    padding: 10px;
+    background: transparent;
+    border: 2px solid var(--concrete-light);
+    color: var(--dust);
+    border-radius: 4px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
   .btn-nav:hover { border-color: var(--yellow); color: var(--yellow); }
   .btn-nav:disabled { opacity: 0.3; cursor: not-allowed; }
-  .btn-reset { width: 100%; max-width: 420px; padding: 12px; background: transparent; border: 2px solid var(--concrete-light); color: var(--dust); border-radius: 4px; font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; margin-top: 10px; transition: all 0.15s; }
+
+  .btn-reset {
+    width: 100%;
+    max-width: 420px;
+    padding: 12px;
+    background: transparent;
+    border: 2px solid var(--concrete-light);
+    color: var(--dust);
+    border-radius: 4px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.15s;
+  }
   .btn-reset:hover { border-color: var(--dust); color: var(--white); }
-  .finished { text-align: center; padding: 40px 20px; max-width: 420px; margin: 0 auto; }
+
+  /* FINISHED */
+  .finished {
+    text-align: center;
+    padding: 40px 20px;
+    max-width: 420px;
+    margin: 0 auto;
+  }
   .finished-icon { font-size: 60px; margin-bottom: 16px; }
-  .finished h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 32px; font-weight: 800; text-transform: uppercase; color: var(--yellow); margin-bottom: 8px; }
+  .finished h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 8px;
+  }
   .finished p { color: var(--dust); line-height: 1.6; }
-  .word-list-section { padding: 24px 16px 0; max-width: 860px; margin: 0 auto; }
-  .word-list-section h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--dust); border-bottom: 2px solid var(--concrete); padding-bottom: 8px; margin-bottom: 14px; }
-  .word-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; }
-  .word-tile { background: var(--concrete); border: 2px solid var(--concrete-light); border-radius: 4px; padding: 10px 12px; cursor: pointer; transition: all 0.15s; position: relative; }
+
+  /* WORD LIST */
+  .word-list-section {
+    padding: 24px 16px 0;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .word-list-section h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--dust);
+    border-bottom: 2px solid var(--concrete);
+    padding-bottom: 8px;
+    margin-bottom: 14px;
+  }
+  .word-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 8px;
+  }
+  .word-tile {
+    background: var(--concrete);
+    border: 2px solid var(--concrete-light);
+    border-radius: 4px;
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    position: relative;
+  }
   .word-tile:hover { border-color: var(--yellow); }
   .word-tile.known { border-color: var(--green); }
   .word-tile.unknown { border-color: var(--red); }
-  .word-tile .wt-cs { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; color: var(--white); }
-  .word-tile .wt-de { font-size: 12px; color: var(--dust); margin-top: 2px; }
-  .word-tile .wt-badge { position: absolute; top: 6px; right: 6px; font-size: 12px; }
+  .word-tile .wt-cs {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .word-tile .wt-de {
+    font-size: 12px;
+    color: var(--dust);
+    margin-top: 2px;
+  }
+  .word-tile .wt-badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    font-size: 12px;
+  }
+
+  .btn-speak {
+    margin-top: 12px;
+    background: var(--black);
+    border: 2px solid var(--concrete-light);
+    color: var(--white);
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-speak:hover { border-color: var(--yellow); color: var(--yellow); }
 </style>
 </head>
 <body>
+
 <header>
   <div class="header-icon">⛏️</div>
-  <h1><span>Němčina pro stavbu</span>Výkopy & Stavební práce</h1>
+  <h1>
+    <span>Němčina pro stavbu</span>
+    Výkopy & Stavební práce
+  </h1>
 </header>
+
 <div class="stats-bar">
   <div class="stat"><div class="stat-dot dot-total"></div><span id="stat-total">0</span> slov</div>
   <div class="stat"><div class="stat-dot dot-known"></div><span id="stat-known">0</span> umím</div>
   <div class="stat"><div class="stat-dot dot-unknown"></div><span id="stat-unknown">0</span> učím se</div>
   <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
 </div>
+
 <div class="categories" id="categories"></div>
+
 <div class="card-area" id="card-area">
   <div class="card-counter" id="card-counter"></div>
   <div class="card-wrapper" id="card-wrapper" onclick="flipCard()">
@@ -117,12 +462,15 @@
   </div>
   <button class="btn-reset" onclick="resetAll()">↺ Začít znovu</button>
 </div>
+
 <div class="word-list-section">
   <h2>🗂 Všechna slova</h2>
   <div class="word-grid" id="word-grid"></div>
 </div>
+
 <script>
 const vocabulary = [
+  // NÁŘADÍ
   { cs: "Lopata", de: "die Schaufel", art: "die · Schaufeln", pron: "[šaufel]", emoji: "⬛", cat: "Nářadí" },
   { cs: "Krumpáč", de: "die Spitzhacke", art: "die · Spitzhacken", pron: "[špichake]", emoji: "⛏️", cat: "Nářadí" },
   { cs: "Rýč", de: "der Spaten", art: "der · Spaten", pron: "[špatn]", emoji: "🪏", cat: "Nářadí" },
@@ -138,6 +486,8 @@ const vocabulary = [
   { cs: "Pila", de: "die Säge", art: "die · Sägen", pron: "[zége]", emoji: "🪚", cat: "Nářadí" },
   { cs: "Vrtačka", de: "die Bohrmaschine", art: "die · Bohrmaschinen", pron: "[bórmašíne]", emoji: "🔩", cat: "Nářadí" },
   { cs: "Úhlová bruska", de: "der Winkelschleifer", art: "der · Winkelschleifer", pron: "[vinklšlajfer]", emoji: "⚙️", cat: "Nářadí" },
+
+  // STROJE
   { cs: "Vibrační deska", de: "die Rüttelplatte", art: "die · Rüttelplatten", pron: "[rütelplate]", emoji: "📳", cat: "Stroje" },
   { cs: "Pěch", de: "der Stampfer", art: "der · Stampfer", pron: "[štampfer]", emoji: "🔩", cat: "Stroje" },
   { cs: "Míchačka", de: "der Betonmischer", art: "der · Betonmischer", pron: "[betónmišer]", emoji: "🌀", cat: "Stroje" },
@@ -148,6 +498,8 @@ const vocabulary = [
   { cs: "Řezačka asfaltu", de: "die Asphaltschneidmaschine", art: "die · -maschinen", pron: "[asfaltšnajtmašíne]", emoji: "✂️", cat: "Stroje" },
   { cs: "Čerpadlo", de: "die Pumpe", art: "die · Pumpen", pron: "[pumpe]", emoji: "💧", cat: "Stroje" },
   { cs: "Generátor", de: "der Generator", art: "der · Generatoren", pron: "[generátor]", emoji: "⚡", cat: "Stroje" },
+
+  // MATERIÁL
   { cs: "Písek", de: "der Sand", art: "der (bez pl.)", pron: "[zant]", emoji: "🏖️", cat: "Materiál" },
   { cs: "Cement", de: "der Zement", art: "der (bez pl.)", pron: "[cemént]", emoji: "🪨", cat: "Materiál" },
   { cs: "Beton", de: "der Beton", art: "der (bez pl.)", pron: "[betón]", emoji: "🧱", cat: "Materiál" },
@@ -160,6 +512,8 @@ const vocabulary = [
   { cs: "Kabel", de: "das Kabel", art: "das · Kabel", pron: "[kábel]", emoji: "🔌", cat: "Materiál" },
   { cs: "Bednění", de: "die Schalung", art: "die · Schalungen", pron: "[šálunk]", emoji: "🟫", cat: "Materiál" },
   { cs: "Výztuž", de: "die Bewehrung", art: "die · Bewehrungen", pron: "[bevérunk]", emoji: "⛓️", cat: "Materiál" },
+
+  // VÝKOP & TERÉN
   { cs: "Výkop", de: "die Baugrube", art: "die · Baugruben", pron: "[baugrúbe]", emoji: "🕳️", cat: "Výkop" },
   { cs: "Rýha", de: "der Graben", art: "der · Gräben", pron: "[grábn]", emoji: "〰️", cat: "Výkop" },
   { cs: "Jáma", de: "die Grube", art: "die · Gruben", pron: "[grúbe]", emoji: "⬜", cat: "Výkop" },
@@ -167,6 +521,8 @@ const vocabulary = [
   { cs: "Hloubka", de: "die Tiefe", art: "die · Tiefen", pron: "[tífe]", emoji: "📏", cat: "Výkop" },
   { cs: "Pažení", de: "die Verbauung", art: "die · Verbauungen", pron: "[ferbauung]", emoji: "🔲", cat: "Výkop" },
   { cs: "Odvodňovací kanálek", de: "die Entwässerungsrinne", art: "die · Rinnen", pron: "[entvéserunksrine]", emoji: "🌊", cat: "Výkop" },
+
+  // KOMUNIKACE
   { cs: "Chodník", de: "der Gehweg", art: "der · Gehwege", pron: "[géwek]", emoji: "🚶", cat: "Komunikace" },
   { cs: "Silnice", de: "die Straße", art: "die · Straßen", pron: "[štrása]", emoji: "🛣️", cat: "Komunikace" },
   { cs: "Obrubník", de: "der Bordstein", art: "der · Bordsteine", pron: "[bortštajn]", emoji: "⬛", cat: "Komunikace" },
@@ -174,6 +530,8 @@ const vocabulary = [
   { cs: "Kanalizační šachta", de: "der Schacht", art: "der · Schächte", pron: "[šacht]", emoji: "🕳️", cat: "Komunikace" },
   { cs: "Poklop", de: "der Kanaldeckel", art: "der · Kanaldeckel", pron: "[kanáldekl]", emoji: "⭕", cat: "Komunikace" },
   { cs: "Koleje (tramvaj)", de: "die Gleise", art: "die (pl.)", pron: "[glajze]", emoji: "🚃", cat: "Komunikace" },
+
+  // BEZPEČNOST
   { cs: "Přilba", de: "der Schutzhelm", art: "der · Schutzhelme", pron: "[šuchelm]", emoji: "⛑️", cat: "Bezpečnost" },
   { cs: "Reflexní vesta", de: "die Warnweste", art: "die · Warnwesten", pron: "[varnveste]", emoji: "🦺", cat: "Bezpečnost" },
   { cs: "Rukavice", de: "die Handschuhe", art: "die (pl.)", pron: "[handšúe]", emoji: "🧤", cat: "Bezpečnost" },
@@ -182,6 +540,8 @@ const vocabulary = [
   { cs: "Zábrana", de: "die Absperrung", art: "die · Absperrungen", pron: "[abšpérung]", emoji: "🚧", cat: "Bezpečnost" },
   { cs: "Výstražná páska", de: "das Absperrband", art: "das · Absperrbänder", pron: "[abšpérbant]", emoji: "⛔", cat: "Bezpečnost" },
   { cs: "Bezpečnostní boty", de: "die Sicherheitsschuhe", art: "die (pl.)", pron: "[zicherhajtšúe]", emoji: "👢", cat: "Bezpečnost" },
+
+  // STAVBA
   { cs: "Základ", de: "das Fundament", art: "das · Fundamente", pron: "[fundament]", emoji: "🏗️", cat: "Stavba" },
   { cs: "Zeď", de: "die Mauer", art: "die · Mauern", pron: "[mauer]", emoji: "🧱", cat: "Stavba" },
   { cs: "Lešení", de: "das Gerüst", art: "das · Gerüste", pron: "[gerüst]", emoji: "🏗️", cat: "Stavba" },
@@ -190,12 +550,14 @@ const vocabulary = [
   { cs: "Stavbyvedoucí", de: "der Bauleiter", art: "der · Bauleiter", pron: "[baulajter]", emoji: "👷", cat: "Stavba" },
   { cs: "Jeřáb", de: "der Kran", art: "der · Kräne", pron: "[krán]", emoji: "🏗️", cat: "Stavba" },
 ];
+
 let currentDeck = [];
 let currentIndex = 0;
 let isFlipped = false;
 let knownCards = new Set();
 let unknownCards = new Set();
 let activeCategory = "Vše";
+
 const categories = ["Vše", ...new Set(vocabulary.map(v => v.cat))];
 
 function speak(text) {
@@ -208,6 +570,7 @@ function speak(text) {
 }
 
 function init() {
+  // Build category buttons
   const catEl = document.getElementById('categories');
   catEl.innerHTML = categories.map(c =>
     `<button class="cat-btn ${c === activeCategory ? 'active' : ''}" onclick="setCategory('${c}')">${c}</button>`
@@ -231,11 +594,14 @@ function filterDeck() {
 }
 
 function showCard() {
-  if (currentIndex >= currentDeck.length) { showFinished(); return; }
+  if (currentIndex >= currentDeck.length) {
+    showFinished(); return;
+  }
   const w = currentDeck[currentIndex];
   const card = document.getElementById('card');
   card.classList.remove('flipped');
   isFlipped = false;
+
   document.getElementById('card-front').innerHTML = `
     <div class="card-emoji">${w.emoji}</div>
     <div class="card-cs">${w.cs}</div>
@@ -249,10 +615,12 @@ function showCard() {
     <div class="card-plural">${w.art}</div>
     <button class="btn-speak" onclick="event.stopPropagation(); speak(this.dataset.word)" data-word="${w.de}">🔊 Přehrát</button>
   `;
+
   document.getElementById('card-counter').textContent = `${currentIndex + 1} / ${currentDeck.length}`;
   document.getElementById('card-buttons').style.display = 'none';
   document.getElementById('card-area').style.display = 'flex';
   document.getElementById('card-wrapper').style.display = 'block';
+
   document.getElementById('btn-prev').disabled = currentIndex === 0;
   document.getElementById('btn-next').disabled = currentIndex >= currentDeck.length - 1;
 }
@@ -274,11 +642,19 @@ function markCard(known) {
 }
 
 function nextCard() {
-  if (currentIndex < currentDeck.length - 1) { currentIndex++; isFlipped = false; showCard(); }
+  if (currentIndex < currentDeck.length - 1) {
+    currentIndex++;
+    isFlipped = false;
+    showCard();
+  }
 }
 
 function prevCard() {
-  if (currentIndex > 0) { currentIndex--; isFlipped = false; showCard(); }
+  if (currentIndex > 0) {
+    currentIndex--;
+    isFlipped = false;
+    showCard();
+  }
 }
 
 function resetAll() {
@@ -303,6 +679,7 @@ function showFinished() {
     </div>
   `;
 }
+
 function updateStats() {
   document.getElementById('stat-total').textContent = vocabulary.length;
   document.getElementById('stat-known').textContent = knownCards.size;
