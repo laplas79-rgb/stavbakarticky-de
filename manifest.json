@@ -1,0 +1,10 @@
+{
+  "name": "Stavba Němčina",
+  "short_name": "Stavba DE",
+  "description": "Německá slovíčka pro výkopy a stavební práce",
+  "start_url": "stavba-nemcina.html",
+  "display": "standalone",
+  "background_color": "#1A1A1A",
+  "theme_color": "#F5C500",
+  "orientation": "portrait"
+}
